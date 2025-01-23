@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqbpefucv3u4e"]
+
+[ext_resource type="PackedScene" uid="uid://cika11j60tbbu" path="res://knight.tscn" id="1_j3ucd"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Knight" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(197, 232)
+
+[node name="Knight2" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(355, 352)
