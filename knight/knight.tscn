@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cika11j60tbbu"]
+
+[ext_resource type="Script" path="res://knight/knight.gd" id="1_7phis"]
+[ext_resource type="SpriteFrames" uid="uid://dood5mhi3qljn" path="res://knight/knight-blue.tres" id="2_wfluh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dpdnx"]
+radius = 8.0
+height = 38.0
+
+[node name="Knight" type="RigidBody2D"]
+lock_rotation = true
+linear_damp = 1.0
+script = ExtResource("1_7phis")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
+sprite_frames = ExtResource("2_wfluh")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_dpdnx")
+
+[node name="AttackArea" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
+position = Vector2(1, 4)
+polygon = PackedVector2Array(0, 9, 87, 17, 91, -55, 1, -46)

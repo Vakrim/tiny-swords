@@ -1,11 +1,92 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqbpefucv3u4e"]
+[gd_scene load_steps=4 format=3 uid="uid://cqbpefucv3u4e"]
 
-[ext_resource type="PackedScene" uid="uid://cika11j60tbbu" path="res://knight.tscn" id="1_j3ucd"]
+[ext_resource type="PackedScene" uid="uid://cika11j60tbbu" path="res://knight/knight.tscn" id="1_j3ucd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydeai"]
+size = Vector2(99, 697)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8hbt5"]
+size = Vector2(1313.25, 170.25)
 
 [node name="Node2D" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Knight" parent="." instance=ExtResource("1_j3ucd")]
 position = Vector2(197, 232)
 
 [node name="Knight2" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(355, 352)
+position = Vector2(304, 295)
+
+[node name="Knight5" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(208, 352)
+
+[node name="Knight6" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(332, 411)
+
+[node name="Knight7" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(154, 316)
+
+[node name="Knight8" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(261, 379)
+
+[node name="Knight9" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(165, 436)
+
+[node name="Knight10" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(289, 495)
+
+[node name="Knight3" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(711, 265)
+team = 1
+
+[node name="Knight4" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(733, 350)
+team = 1
+
+[node name="Knight11" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(798, 265)
+team = 1
+
+[node name="Knight12" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(820, 350)
+team = 1
+
+[node name="Knight13" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(747, 450)
+team = 1
+
+[node name="Knight14" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(769, 535)
+team = 1
+
+[node name="Knight15" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(834, 450)
+team = 1
+
+[node name="Knight16" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(856, 535)
+team = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-3.5, 338.5)
+shape = SubResource("RectangleShape2D_ydeai")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1185, 332)
+shape = SubResource("RectangleShape2D_ydeai")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(591.375, 10.875)
+shape = SubResource("RectangleShape2D_8hbt5")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(585, 705)
+shape = SubResource("RectangleShape2D_8hbt5")
