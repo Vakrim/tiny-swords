@@ -10,10 +10,16 @@ config_version=5
 
 [application]
 
-config/name="tiny-sword"
+config/name="tiny-swords"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[layer_names]
+
+2d_physics/layer_1="collisions"
+2d_physics/layer_2="knights"
+2d_physics/layer_3="towers"
 
 [physics]
 

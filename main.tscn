@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqbpefucv3u4e"]
+[gd_scene load_steps=5 format=3 uid="uid://cqbpefucv3u4e"]
 
 [ext_resource type="PackedScene" uid="uid://cika11j60tbbu" path="res://knight/knight.tscn" id="1_j3ucd"]
+[ext_resource type="PackedScene" uid="uid://b06gep64skdg4" path="res://tower/tower.tscn" id="2_hfvpf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydeai"]
 size = Vector2(99, 697)
@@ -90,3 +91,9 @@ shape = SubResource("RectangleShape2D_8hbt5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 position = Vector2(585, 705)
 shape = SubResource("RectangleShape2D_8hbt5")
+
+[node name="Tower" parent="." instance=ExtResource("2_hfvpf")]
+position = Vector2(124, 371)
+
+[node name="Tower2" parent="." instance=ExtResource("2_hfvpf")]
+position = Vector2(1014, 383)

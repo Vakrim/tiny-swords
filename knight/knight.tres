@@ -1,0 +1,31 @@
+[gd_resource type="VisualShader" load_steps=2 format=3 uid="uid://butx8s63vbb5r"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_a1e55"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+input_name = "screen_pixel_size"
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void fragment() {
+// Input:2
+	vec2 n_out2p0 = SCREEN_PIXEL_SIZE;
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out2p0, 0.0);
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(1020, 140)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_a1e55")
+nodes/fragment/2/position = Vector2(412.1, 161.2)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)

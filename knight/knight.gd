@@ -1,14 +1,14 @@
 class_name Knight
 extends RigidBody2D
 
-enum Team {BLUE, RED}
+@export var team: Team.Hue
 
-@export var team = Team.BLUE
-
-@onready var sprite = $Sprite as AnimatedSprite2D
-@onready var attack_area = $AttackArea as Area2D
+@onready var sprite: AnimatedSprite2D = $Sprite
+@onready var attack_area: Area2D = $AttackArea
 
 var state: State = null
+
+var health = 3
 
 func _ready() -> void:
   if team == Team.RED:
@@ -35,6 +35,13 @@ func get_closest_enemy() -> Node2D:
       closest_enemy = enemy
 
   return closest_enemy
+
+func receive_damage() -> void:
+  change_state(StunState.new())
+  health -= 1
+  if health <= 0:
+    sprite.material = ShaderMaterial.new()
+    sprite.material.shader = preload("res://knight/ghost.gdshader")
 
 func change_state(new_state: State) -> void:
   if state:
@@ -118,10 +125,10 @@ class AttackState extends State:
 
       for enemy: Knight in enemies:
         if actor.attack_area.overlaps_body(enemy):
-          var push_back_impulse = (enemy.global_position - actor.global_position).normalized() * 1300
+          var push_back_impulse = (enemy.global_position - actor.global_position).normalized() * 600
 
           enemy.apply_central_impulse(push_back_impulse)
-          enemy.change_state(StunState.new())
+          enemy.receive_damage()
 
   func _on_animation_finished() -> void:
     actor.change_state(IdleState.new())
@@ -139,3 +146,11 @@ class StunState extends State:
     duration -= delta
     if duration <= 0:
       actor.change_state(IdleState.new())
+
+class GhostState extends State:
+  func enter() -> void:
+    actor.sprite.material = ShaderMaterial.new()
+    actor.sprite.material.shader = preload("res://knight/ghost.gdshader")
+
+  func exit() -> void:
+    actor.sprite.material = null
