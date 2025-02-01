@@ -7,16 +7,14 @@
 radius = 15.0
 height = 86.0
 
-[node name="Tower" type="Node2D"]
+[node name="StaticBody2D" type="StaticBody2D"]
+collision_layer = 5
 script = ExtResource("1_airre")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -80)
 texture = ExtResource("1_apm4g")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_moypi")

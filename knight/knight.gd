@@ -1,47 +1,48 @@
 class_name Knight
 extends RigidBody2D
 
-@export var team: Team.Hue
+@export var team: Team
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var attack_area: Area2D = $AttackArea
+@onready var healing_area: Area2D = $HealingArea
 
 var state: State = null
 
 var health = 3
 
 func _ready() -> void:
-  if team == Team.RED:
-    sprite.sprite_frames = load("res://knight/knight-red.tres")
-  else:
-    sprite.sprite_frames = load("res://knight/knight-blue.tres")
+  sprite.sprite_frames = team.get_knight_sprite_frames()
 
-  add_to_group(get_my_team_group_name())
+  add_to_group(team.get_units_group_name())
 
   change_state(IdleState.new())
 
 func _physics_process(delta: float) -> void:
   state.update(delta)
 
-func get_closest_enemy() -> Node2D:
-  var enemies = get_tree().get_nodes_in_group(get_enemy_team_group_name())
-  var closest_enemy = null
+func get_closest(group_name: String) -> Node2D:
+  var entities = get_tree().get_nodes_in_group(group_name)
+  var closest_entity = null
   var closest_distance = 1000000
 
-  for enemy in enemies:
-    var distance = global_position.distance_to(enemy.global_position)
+  for entity in entities:
+    var distance = global_position.distance_to(entity.global_position)
     if distance < closest_distance:
       closest_distance = distance
-      closest_enemy = enemy
+      closest_entity = entity
 
-  return closest_enemy
+  return closest_entity
 
 func receive_damage() -> void:
   change_state(StunState.new())
   health -= 1
   if health <= 0:
-    sprite.material = ShaderMaterial.new()
-    sprite.material.shader = preload("res://knight/ghost.gdshader")
+    change_state(GhostState.new())
+
+func receive_healing() -> void:
+  health = 3
+  change_state(IdleState.new())
 
 func change_state(new_state: State) -> void:
   if state:
@@ -49,22 +50,6 @@ func change_state(new_state: State) -> void:
   state = new_state
   state.init(self)
   state.enter()
-
-func get_my_team_group_name() -> String:
-  var team_name
-  match team:
-    Team.BLUE: team_name = "blue"
-    Team.RED: team_name = "red"
-
-  return "team_" + team_name
-
-func get_enemy_team_group_name() -> String:
-  var enemy_team_name
-  match team:
-    Team.BLUE: enemy_team_name = "red"
-    Team.RED: enemy_team_name = "blue"
-
-  return "team_" + enemy_team_name
 
 class State:
   var actor: Knight = null
@@ -86,7 +71,7 @@ class IdleState extends State:
     actor.sprite.play("idle")
 
   func update(_delta: float) -> void:
-    var enemies = actor.get_tree().get_nodes_in_group(actor.get_enemy_team_group_name())
+    var enemies = actor.get_tree().get_nodes_in_group(actor.team.get_enemy_units_group_name())
     if enemies.size() > 0:
       actor.change_state(WalkTowardEnemyState.new())
 
@@ -95,13 +80,13 @@ class WalkTowardEnemyState extends State:
     actor.sprite.play("walk")
 
   func update(_delta: float) -> void:
-    var enemies = actor.get_tree().get_nodes_in_group(actor.get_enemy_team_group_name())
+    var enemies = actor.get_tree().get_nodes_in_group(actor.team.get_enemy_units_group_name())
 
     for enemy in enemies:
       if actor.attack_area.overlaps_body(enemy):
         actor.change_state(AttackState.new())
 
-    var enemy = actor.get_closest_enemy()
+    var enemy = actor.get_closest(actor.team.get_enemy_units_group_name())
     if enemy:
       var direction = (enemy.global_position - actor.global_position).normalized()
 
@@ -121,11 +106,11 @@ class AttackState extends State:
 
   func _on_frame_changed() -> void:
     if actor.sprite.frame == 3:
-      var enemies = actor.get_tree().get_nodes_in_group(actor.get_enemy_team_group_name())
+      var enemies = actor.get_tree().get_nodes_in_group(actor.team.get_enemy_units_group_name())
 
       for enemy: Knight in enemies:
         if actor.attack_area.overlaps_body(enemy):
-          var push_back_impulse = (enemy.global_position - actor.global_position).normalized() * 600
+          var push_back_impulse = (enemy.global_position - actor.global_position).normalized() * 300
 
           enemy.apply_central_impulse(push_back_impulse)
           enemy.receive_damage()
@@ -149,8 +134,25 @@ class StunState extends State:
 
 class GhostState extends State:
   func enter() -> void:
+    actor.sprite.play("walk")
     actor.sprite.material = ShaderMaterial.new()
     actor.sprite.material.shader = preload("res://knight/ghost.gdshader")
+    actor.healing_area.connect("body_entered", _on_body_entered)
 
   func exit() -> void:
     actor.sprite.material = null
+
+  func update(_delta: float) -> void:
+    var tower = actor.get_closest(actor.team.get_towers_group_name())
+
+    if tower:
+      var direction = (tower.global_position - actor.global_position).normalized()
+
+      actor.apply_central_force(direction * 100)
+
+      actor.sprite.flip_h = direction.x < 0
+      actor.attack_area.scale.x = -1 if direction.x < 0 else 1
+
+  func _on_body_entered(body: Node) -> void:
+    if body.is_in_group(actor.team.get_towers_group_name()):
+      actor.receive_healing()

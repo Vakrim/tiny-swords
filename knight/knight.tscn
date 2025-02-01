@@ -39,7 +39,6 @@ polygon = PackedVector2Array(0, 9, 87, 17, 91, -55, 1, -46)
 [node name="HealingArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HealingArea"]
 rotation = 1.5708

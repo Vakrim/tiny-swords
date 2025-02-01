@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Team" load_steps=2 format=3 uid="uid://dwfvhmu61kc23"]
+
+[ext_resource type="Script" path="res://team/team.gd" id="1_umvjk"]
+
+[resource]
+script = ExtResource("1_umvjk")
+hue = 0

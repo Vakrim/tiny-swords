@@ -1,12 +1,11 @@
 class_name Tower
-extends Node2D
+extends StaticBody2D
 
-@export var team := Team.RED
+@export var team: Team
 
 @onready var sprite: Sprite2D = $Sprite
 
 func _ready() -> void:
-    if team == Team.RED:
-        sprite.texture = preload("res://tower/tower-red.png")
-    else:
-        sprite.texture = preload("res://tower/tower-blue.png")
+  sprite.texture = team.get_tower_texture()
+
+  add_to_group(team.get_towers_group_name())
