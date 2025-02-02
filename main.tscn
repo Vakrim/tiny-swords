@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqbpefucv3u4e"]
+[gd_scene load_steps=8 format=3 uid="uid://cqbpefucv3u4e"]
 
 [ext_resource type="PackedScene" uid="uid://cika11j60tbbu" path="res://knight/knight.tscn" id="1_j3ucd"]
+[ext_resource type="PackedScene" uid="uid://be5qyy75i7v0f" path="res://terrain/island.tscn" id="1_xfafk"]
 [ext_resource type="PackedScene" uid="uid://b06gep64skdg4" path="res://tower/tower.tscn" id="2_hfvpf"]
 [ext_resource type="Resource" uid="uid://dwfvhmu61kc23" path="res://team/blue-team.tres" id="2_wey1n"]
 [ext_resource type="Resource" uid="uid://criu4wf8qe8y8" path="res://team/red-team.tres" id="3_npqmg"]
@@ -13,6 +14,8 @@ size = Vector2(1313.25, 170.25)
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
+
+[node name="Island" parent="." instance=ExtResource("1_xfafk")]
 
 [node name="Knight" parent="." instance=ExtResource("1_j3ucd")]
 position = Vector2(197, 232)
