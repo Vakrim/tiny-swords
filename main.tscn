@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqbpefucv3u4e"]
+[gd_scene load_steps=10 format=3 uid="uid://cqbpefucv3u4e"]
 
 [ext_resource type="PackedScene" uid="uid://cika11j60tbbu" path="res://knight/knight.tscn" id="1_j3ucd"]
 [ext_resource type="PackedScene" uid="uid://be5qyy75i7v0f" path="res://terrain/island.tscn" id="1_xfafk"]
 [ext_resource type="PackedScene" uid="uid://b06gep64skdg4" path="res://tower/tower.tscn" id="2_hfvpf"]
 [ext_resource type="Resource" uid="uid://dwfvhmu61kc23" path="res://team/blue-team.tres" id="2_wey1n"]
 [ext_resource type="Resource" uid="uid://criu4wf8qe8y8" path="res://team/red-team.tres" id="3_npqmg"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="6_f738s"]
+[ext_resource type="Script" path="res://team/team.gd" id="7_63c4q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydeai"]
 size = Vector2(99, 697)
@@ -112,3 +114,8 @@ team = ExtResource("2_wey1n")
 [node name="Tower2" parent="." instance=ExtResource("2_hfvpf")]
 position = Vector2(1014, 383)
 team = ExtResource("3_npqmg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("6_f738s")
+teams = Array[ExtResource("7_63c4q")]([ExtResource("2_wey1n"), ExtResource("3_npqmg")])
