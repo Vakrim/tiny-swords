@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqbpefucv3u4e"]
+[gd_scene load_steps=8 format=3 uid="uid://cqbpefucv3u4e"]
 
 [ext_resource type="PackedScene" uid="uid://cika11j60tbbu" path="res://knight/knight.tscn" id="1_j3ucd"]
 [ext_resource type="PackedScene" uid="uid://be5qyy75i7v0f" path="res://terrain/island.tscn" id="1_xfafk"]
@@ -7,12 +7,6 @@
 [ext_resource type="Resource" uid="uid://criu4wf8qe8y8" path="res://team/red-team.tres" id="3_npqmg"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="6_f738s"]
 [ext_resource type="Script" path="res://team/team.gd" id="7_63c4q"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydeai"]
-size = Vector2(99, 697)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8hbt5"]
-size = Vector2(1313.25, 170.25)
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -24,7 +18,7 @@ position = Vector2(197, 232)
 team = ExtResource("2_wey1n")
 
 [node name="Knight2" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(304, 295)
+position = Vector2(372, 209)
 team = ExtResource("2_wey1n")
 
 [node name="Knight5" parent="." instance=ExtResource("1_j3ucd")]
@@ -36,86 +30,67 @@ position = Vector2(332, 411)
 team = ExtResource("2_wey1n")
 
 [node name="Knight7" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(154, 316)
+position = Vector2(138, 436)
+team = ExtResource("2_wey1n")
+
+[node name="Knight17" parent="." instance=ExtResource("1_j3ucd")]
+position = Vector2(419, 302)
 team = ExtResource("2_wey1n")
 
 [node name="Knight8" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(261, 379)
+position = Vector2(336, 584)
 team = ExtResource("2_wey1n")
 
 [node name="Knight9" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(165, 436)
+position = Vector2(152, 578)
 team = ExtResource("2_wey1n")
 
 [node name="Knight10" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(289, 495)
+position = Vector2(408, 480)
 team = ExtResource("2_wey1n")
 
 [node name="Knight3" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(711, 265)
+position = Vector2(1206, 340)
 team = ExtResource("3_npqmg")
 
 [node name="Knight4" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(733, 350)
+position = Vector2(1228, 425)
 team = ExtResource("3_npqmg")
 
 [node name="Knight11" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(798, 265)
+position = Vector2(1293, 340)
 team = ExtResource("3_npqmg")
 
 [node name="Knight12" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(820, 350)
+position = Vector2(1315, 425)
 team = ExtResource("3_npqmg")
 
 [node name="Knight13" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(747, 450)
+position = Vector2(1242, 525)
 team = ExtResource("3_npqmg")
 
 [node name="Knight14" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(769, 535)
+position = Vector2(1264, 610)
 team = ExtResource("3_npqmg")
 
 [node name="Knight15" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(834, 450)
+position = Vector2(1329, 525)
 team = ExtResource("3_npqmg")
 
 [node name="Knight16" parent="." instance=ExtResource("1_j3ucd")]
-position = Vector2(856, 535)
+position = Vector2(1351, 610)
 team = ExtResource("3_npqmg")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-3.5, 338.5)
-shape = SubResource("RectangleShape2D_ydeai")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(1185, 332)
-shape = SubResource("RectangleShape2D_ydeai")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(591.375, 10.875)
-shape = SubResource("RectangleShape2D_8hbt5")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2(585, 705)
-shape = SubResource("RectangleShape2D_8hbt5")
 
 [node name="Tower" parent="." instance=ExtResource("2_hfvpf")]
 position = Vector2(124, 371)
 team = ExtResource("2_wey1n")
 
 [node name="Tower2" parent="." instance=ExtResource("2_hfvpf")]
-position = Vector2(1014, 383)
+position = Vector2(1554, 501)
 team = ExtResource("3_npqmg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(888, 430)
 position_smoothing_enabled = true
 script = ExtResource("6_f738s")
 teams = Array[ExtResource("7_63c4q")]([ExtResource("2_wey1n"), ExtResource("3_npqmg")])
