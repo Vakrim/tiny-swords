@@ -1,3 +1,9 @@
+# States:
+#   IdleState            — enemies detected → WalkTowardEnemyState
+#   WalkTowardEnemyState — inside AttackArea overlap → AttackState
+#   AttackState          — frame 3: 1 HP damage + 300 knockback; HP 0 → GhostState
+#   StunState            — 0.5 s recovery after hit → IdleState
+#   GhostState           — walks toward nearest monk (falls back to tower); healed → IdleState
 class_name Knight
 extends RigidBody2D
 
@@ -108,7 +114,7 @@ class AttackState extends State:
     if actor.sprite.frame == 3:
       var enemies = actor.get_tree().get_nodes_in_group(actor.team.get_enemy_units_group_name())
 
-      for enemy: Knight in enemies:
+      for enemy in enemies:
         if actor.attack_area.overlaps_body(enemy):
           var push_back_impulse = (enemy.global_position - actor.global_position).normalized() * 300
 
@@ -137,16 +143,22 @@ class GhostState extends State:
     actor.sprite.play("walk")
     actor.sprite.material = ShaderMaterial.new()
     actor.sprite.material.shader = preload("res://knight/ghost.gdshader")
+    actor.add_to_group(actor.team.get_ghosts_group_name())
     actor.healing_area.connect("body_entered", _on_body_entered)
 
   func exit() -> void:
     actor.sprite.material = null
+    actor.remove_from_group(actor.team.get_ghosts_group_name())
+    if actor.healing_area.body_entered.is_connected(_on_body_entered):
+      actor.healing_area.body_entered.disconnect(_on_body_entered)
 
   func update(_delta: float) -> void:
-    var tower = actor.get_closest(actor.team.get_towers_group_name())
+    var target = actor.get_closest(actor.team.get_monks_group_name())
+    if not target:
+      target = actor.get_closest(actor.team.get_towers_group_name())
 
-    if tower:
-      var direction = (tower.global_position - actor.global_position).normalized()
+    if target:
+      var direction = (target.global_position - actor.global_position).normalized()
 
       actor.apply_central_force(direction * 100)
 

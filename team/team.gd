@@ -31,10 +31,24 @@ func get_enemy_units_group_name() -> String:
 func get_towers_group_name() -> String:
   return get_team_name() + "_towers"
 
+func get_ghosts_group_name() -> String:
+  return get_team_name() + "_ghosts"
+
+func get_monks_group_name() -> String:
+  return get_team_name() + "_monks"
+
 func get_knight_sprite_frames():
   match hue:
     BLUE: return preload("res://knight/knight-blue.tres")
     RED: return preload("res://knight/knight-red.tres")
+    _:
+      assert(false, "Invalid team")
+      return null
+
+func get_monk_sprite_frames():
+  match hue:
+    BLUE: return preload("res://monk/monk-blue.tres")
+    RED: return preload("res://monk/monk-red.tres")
     _:
       assert(false, "Invalid team")
       return null
