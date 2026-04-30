@@ -139,6 +139,8 @@ class StunState extends State:
       actor.change_state(IdleState.new())
 
 class GhostState extends State:
+  var elapsed: float = 0.0
+
   func enter() -> void:
     actor.sprite.play("walk")
     actor.sprite.material = ShaderMaterial.new()
@@ -158,7 +160,11 @@ class GhostState extends State:
     actor.collision_layer = Layers.TERRAIN | Layers.UNITS
     actor.collision_mask = Layers.TERRAIN | Layers.UNITS
 
-  func update(_delta: float) -> void:
+  func update(delta: float) -> void:
+    elapsed += delta
+    if elapsed >= 5.0:
+      actor.queue_free()
+      return
     var target = actor.get_closest(actor.team.get_monks_group_name())
     if not target:
       target = actor.get_closest(actor.team.get_towers_group_name())
