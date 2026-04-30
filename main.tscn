@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b06gep64skdg4" path="res://tower/tower.tscn" id="2_hfvpf"]
 [ext_resource type="Resource" uid="uid://dwfvhmu61kc23" path="res://team/blue-team.tres" id="2_wey1n"]
 [ext_resource type="Resource" uid="uid://criu4wf8qe8y8" path="res://team/red-team.tres" id="3_npqmg"]
-[ext_resource type="PackedScene" path="res://monk/monk.tscn" id="5_monk"]
+[ext_resource type="PackedScene" uid="uid://c5sehbrsr873p" path="res://monk/monk.tscn" id="5_monk"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="6_f738s"]
 [ext_resource type="Script" path="res://team/team.gd" id="7_63c4q"]
 

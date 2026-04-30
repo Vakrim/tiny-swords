@@ -143,14 +143,20 @@ class GhostState extends State:
     actor.sprite.play("walk")
     actor.sprite.material = ShaderMaterial.new()
     actor.sprite.material.shader = preload("res://knight/ghost.gdshader")
+    actor.remove_from_group(actor.team.get_units_group_name())
     actor.add_to_group(actor.team.get_ghosts_group_name())
     actor.healing_area.connect("body_entered", _on_body_entered)
+    actor.collision_layer = Layers.UNITS
+    actor.collision_mask = Layers.TERRAIN
 
   func exit() -> void:
     actor.sprite.material = null
+    actor.add_to_group(actor.team.get_units_group_name())
     actor.remove_from_group(actor.team.get_ghosts_group_name())
     if actor.healing_area.body_entered.is_connected(_on_body_entered):
       actor.healing_area.body_entered.disconnect(_on_body_entered)
+    actor.collision_layer = Layers.TERRAIN | Layers.UNITS
+    actor.collision_mask = Layers.TERRAIN | Layers.UNITS
 
   func update(_delta: float) -> void:
     var target = actor.get_closest(actor.team.get_monks_group_name())
