@@ -17,7 +17,7 @@ func spawn_monk() -> void:
   var monk = monk_scene.instantiate()
   monk.team = team
   monk.home_tower = self
-  monk.global_position = global_position
+  monk.global_position = global_position + Vector2(0, 20)
   get_parent().add_child.call_deferred(monk)
 
 func schedule_monk_spawn() -> void:
